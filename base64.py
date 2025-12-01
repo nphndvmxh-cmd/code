@@ -1,4 +1,4 @@
-import sys,os,time,subprocess,requests
+import sys,os,time,requests
 ban = """\033[1;32m                             
  ▄▄▄   ▄▄     ▄▄     ▄▄▄  ▄▄▄ 
  ███   ██    ████    ███  ███ 
@@ -79,7 +79,6 @@ def obfuscate_file():
 
     print(f"[OK] mã hóa thành công! đã lưu tại: {output_file}")
     os.system("cls" if os.name == "nt" else "clear")
-
 
 if __name__ == "__main__":
     print("========MÃ HÓA BASE64========")
