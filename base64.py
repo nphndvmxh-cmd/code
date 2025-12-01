@@ -1,6 +1,20 @@
-import requests
-import os
-
+import sys,os,time,subprocess,requests
+ban = """\033[1;32m                             
+ ▄▄▄   ▄▄     ▄▄     ▄▄▄  ▄▄▄ 
+ ███   ██    ████    ███  ███ 
+ ██▀█  ██    ████    ████████ 
+ ██ ██ ██   ██  ██   ██ ██ ██ 
+ ██  █▄██   ██████   ██ ▀▀ ██ 
+ ██   ███  ▄██  ██▄  ██    ██ 
+ ▀▀   ▀▀▀  ▀▀    ▀▀  ▀▀    ▀▀                                                            
+"""
+def banner():
+  os.system("cls" if os.name == "nt" else "clear")
+  for h in ban:
+    sys.stdout.write(h)
+    sys.stdout.flush()
+    time.sleep(0.001)
+banner()
 API_URL = "https://freecodingtools.org/api/obfuscate/python"
 
 headers = {
@@ -20,37 +34,10 @@ headers = {
 }
 
 def obfuscate_file():
-    filepath = input("Nhập đường dẫn file cần mã hóa: ").strip()
+    filepath = input("[!] nhập đường dẫn file cần mã hóa: ").strip()
 
     if not os.path.isfile(filepath):
-        print("❌ File không tồn tại!")
-        return
-import requests
-import os
-
-API_URL = "https://freecodingtools.org/api/obfuscate/python"
-
-headers = {
-    'Accept': '*/*',
-    'Accept-Language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
-    'Connection': 'keep-alive',
-    'Content-Type': 'application/json',
-    'Origin': 'https://freecodingtools.org',
-    'Referer': 'https://freecodingtools.org/tools/obfuscator/python',
-    'Sec-Fetch-Dest': 'empty',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-origin',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36',
-    'sec-ch-ua': '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
-    'sec-ch-ua-mobile': '?1',
-    'sec-ch-ua-platform': '"Android"',
-}
-
-def obfuscate_file():
-    filepath = input("Nhập đường dẫn file cần mã hóa: ").strip()
-
-    if not os.path.isfile(filepath):
-        print("❌ File không tồn tại!")
+        print("[X] file không tồn tại!")
         return
 
     # Đọc nội dung python gốc
@@ -62,13 +49,13 @@ def obfuscate_file():
         "code": code
     }
 
-    print("⏳ Đang obfuscate...")
+    print(">>đang mã hóa...")
 
     response = requests.post(API_URL, headers=headers, json=json_data)
 
     # Kiểm tra lỗi API
     if response.status_code != 200:
-        print("❌ API trả lỗi:", response.text)
+        print("[X] lỗi api:", response.text)
         return
 
     result = response.json()
@@ -76,7 +63,7 @@ def obfuscate_file():
     # Lấy nội dung obfuscate từ key 'output'
     obf = result.get("output")
     if not obf:
-        print("❌ API không trả về output!")
+        print("[/] vui lòng kiên nhẫn!")
         print(result)
         return
 
@@ -90,9 +77,9 @@ def obfuscate_file():
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(obf)
 
-    print(f"✅ Obfuscate thành công! File output: {output_file}")
+    print(f"[OK] mã hóa thành công! đã lưu tại: {output_file}")
 
 
 if __name__ == "__main__":
-    print("=== Python Obfuscator Tool ===")
+    print("========MÃ HÓA BASE64========")
     obfuscate_file()
