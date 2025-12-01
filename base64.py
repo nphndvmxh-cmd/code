@@ -78,6 +78,7 @@ def obfuscate_file():
         f.write(obf)
 
     print(f"[OK] mã hóa thành công! đã lưu tại: {output_file}")
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 if __name__ == "__main__":
